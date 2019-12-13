@@ -163,4 +163,10 @@ nextOutput input program =
     . withProgramInputs (++input)
     $ program
 
+nextInput input program =
+    until (\p -> endProgram p || getOffset p 0 == 3) stepProgram
+    . withProgramOutputs (const [])
+    . withProgramInputs (++input)
+    $ program
+
 hasOutput = not . null . programOutputs

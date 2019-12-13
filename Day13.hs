@@ -38,12 +38,9 @@ calculateMove screen =
         (ballRow, ballColumn) = head . Map.keys . Map.filter (==4) $ screen
         (paddleRow, paddleColumn) = head . Map.keys . Map.filter (==3) $ screen
     in
-        if paddleColumn - ballColumn == 1 && ballRow == paddleRow
-            then 's'
-            else
-                if paddleRow <= ballRow
-                    then 'j'
-                    else 'k'
+        if ballRow == paddleRow then 's'
+        else if paddleRow < ballRow then 'j'
+        else 'k'
 
 runMapProgram = buildMap . programOutputs . runProgram . initializeProgram [] . parseProgram
 
