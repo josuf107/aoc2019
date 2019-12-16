@@ -59,5 +59,3 @@ showTile 1 = "#"
 showTile 2 = "@"
 showTile 3 = "|"
 showTile 4 = "o"
-
--- not 15
