@@ -16,12 +16,13 @@ data Recipe = Recipe { recipeIngredients :: [(Integer, String)], recipeYield :: 
     deriving (Show, Eq, Ord)
 
 run2 input =
-    let
-        cookbook = parseCookbook input
-    in last . levels . walkTree cookbook
-        $ unfoldTree
-            (\range@(low, high) -> (range, splitRange low high))
-            (initialRange cookbook)
+    let cookbook = parseCookbook input
+    in last . levels $ searchTree cookbook
+    
+searchTree cookbook = walkTree cookbook
+    $ unfoldTree
+        (\range@(low, high) -> (range, splitRange low high))
+        (initialRange cookbook)
 
 splitRange low high = let newSize = (high - low) `div` 2 in [(low, low + newSize), (low + newSize, high)]
 
@@ -34,8 +35,7 @@ walkTree cookbook (Node range@(low, high) nodes) =
     else Node range []
 
 initialRange cookbook = head . filter (fuelInRange cookbook) $ zip powersOfTwo (tail powersOfTwo)
-    where
-        powersOfTwo = fmap (2^) [0..]
+    where powersOfTwo = fmap (2^) [0..]
 
 fuelInRange cookbook (low, high) =
     oreForFuel cookbook low <= 1000000000000
