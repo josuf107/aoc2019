@@ -34,3 +34,5 @@ runToInput = fmap (chr . fromIntegral) . programOutputs . runProgram . initializ
 -- 588 is too low
 --
 -- 8556 is too low
+--
+-- 8096 is too low
